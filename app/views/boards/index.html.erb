@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Boards</h1>
+
+
+ <div style="display:flex; flex-wrap: wrap;">
+
+    <% @boards.each do |board| %>
+      <div style="display:flex; margin: 20px; flex-wrap: wrap; flex-direction: column;">
+		<span><%= link_to 'Destroy', project_board_path(board.project,board), method: :delete, data: { confirm: 'Are you sure?' } %></span>
+        <span><%= board.name %></span>
+        <span><%= board.description %></span>
+       <!-- <span><%= link_to 'Edit', edit_project_board_path(board.project,board) %></span>!-->
+
+		
+		<div class="board_items">
+			<%= link_to "DODELAT", board_items_path(board)%>
+		  <label for=""></label><input type="text" onClick="add_item(this,'<%= board_items_url(board) %>','<%= board.id %>');" />
+		  <ul id="board_items-<%=board.id%>">
+			  <% board.board_items.each do |item| %>
+			     <li><%= item.description%></li>
+			  <% end %>
+		  	
+		  </ul>
+		</div>
+		
+      </div>
+    <% end %>
+ </div>
+
+<br>
+
+<%= link_to 'New Board', new_project_board_path %>
